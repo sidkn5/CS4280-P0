@@ -1,9 +1,10 @@
 /*Sean Dela Pena 
  *P0 - practice with standards, trees, traversals
  *	 command line argumets and file IO.
- *
- *
- *
+ *		This program works by 
+ *Professor: Mark Hauschild
+ *github: github.com/sidkn5
+ *Date: 9-19-21
  */
 
 #include <iostream>
@@ -15,19 +16,20 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 
-	BST tree;			//BST class in tree.cpp
+	BST tree;							//BST class in tree.cpp
 	ifstream file;
-	string filename;
+	string filename = "tempFilename";	//defaults to tempFilename if keyboard input is used
 	Node* rootPtr = NULL;
+	int indent = 0;						//used for printing the "levels" of the tree 
 	
-	//still needs testing
 	//process command line arguments
 	if (argc == 1) {
 		//no arguments entered, will read from keyboard
-		filename = "tempFilename";
-		//cout << filename << endl;
+		//filename = "tempFilename";
+		rootPtr = tree.buildBST();
 	}
 	if (argc == 2) {
+		//filename given, P0 somefile invocation
 		//check if filename exists
 		filename = argv[1];		
 		file.open(filename);
@@ -39,16 +41,15 @@ int main(int argc, char* argv[]) {
 			exit(0);
 		}
 		file.close();
+
+		//build bst given a filename
+		rootPtr = tree.buildBST(filename);
 	}
 	if (argc > 2) {
-		filename = "tempFilename";
-		cout << "Please refer to help for proper use of the program." << endl;
+		//filename = "tempFilename";
+		//P0 < somefile invocation
+		rootPtr = tree.buildBST();
 	}
-
-	
-	
-	//building BSTs
-	rootPtr = tree.buildBST(filename);
 
 
 	//output files with respect to the traversals
@@ -57,15 +58,19 @@ int main(int argc, char* argv[]) {
 	ofstream postOrderFile(filename + ".postorder", ios::out);
 
 
-	//test print
-	//tree.printInorder(rootPtr);
-	tree.printPostorder(rootPtr);
+	//print to the output files made above
+	tree.printInorder(rootPtr, indent, inOrderFile);
+	tree.printPostorder(rootPtr, indent, postOrderFile);
+	tree.printPreorder(rootPtr, indent, preOrderFile);
 
 	//close the files
 	file.close();
 	preOrderFile.close();
 	inOrderFile.close();
 	postOrderFile.close();
+
+	//free the ptrs and point to null
+	tree.destroyTree(rootPtr);
 
 	return 0;
 }

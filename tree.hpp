@@ -22,15 +22,17 @@ private:
 public:
 	BST();
 	~BST();
-	void insertBST(Node* &node, string data);
+	
 	Node* create(char data);
 	Node* buildBST(string filename);
+	Node* buildBST();
 	string getWord(char data);
 	string cleanBuffer();
+	void insertBST(Node*& node, string data);
 	void destroyTree(Node* leaf);
-	void printPostorder(Node* node);
-	void printInorder(struct Node* node);
-	void printPreorder(struct Node* node);
+	void printPostorder(Node* node, int indent, ofstream& file);
+	void printInorder(struct Node* node, int indent, ofstream &file);
+	void printPreorder(struct Node* node, int indent, ofstream& file);
 
 };
 
