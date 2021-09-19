@@ -1,16 +1,16 @@
-//File: tree.c
+// Student: Sean Dela Pena
+// File: tree.c
 //
 //
-//Sources: https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
-//        https://www.cprogramming.com/tutorial/lesson18.html
-// 
-//          
-//Revised the traversals to fit the project description
+// Sources: https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
+//          https://www.cprogramming.com/tutorial/lesson18.html
+//          https://www.geeksforgeeks.org/remove-duplicaterepeated-words-string/
+//          https://www.geeksforgeeks.org/binary-tree-data-structure/
+// Revised the traversals to fit the project description
 
 
 #include "tree.hpp"
 using namespace std;
-
 
 BST::BST() {
     root = NULL;
@@ -19,10 +19,8 @@ BST::BST() {
 }
 
 BST::~BST() {
-
     //destructor
 }
-
 
 //Builds the bst by the first alphanumeric char, and stores the words in a string buffer
 //reads input from a file given
@@ -39,14 +37,13 @@ Node* BST::buildBST(string filename) {
     if (file) {
         while (file >> word) {
             temp = word;     
-            STACKBUFFER += word + ' ';      //buffer for the strings
-            insertBST(root, word); 
+            STACKBUFFER += word + ' ';      //buffer for the strings, contains all the words
+            insertBST(root, word);          
         }
     }
 
     rootPtr = root;
     file.close();
-    cout << "StackedBuffer: " << STACKBUFFER << endl;
 
     return rootPtr;
 }
@@ -65,7 +62,6 @@ Node* BST::buildBST() {
     
     return rootPtr;
 }
-
 
 //Create a new node
 Node* BST::create(char data) {
@@ -125,10 +121,10 @@ string BST::getWord(char data) {
     istringstream iss(str);
 
     //go through the string and extract words that start with that letter
-    while (iss) {
-        iss >> temp;
+    while (iss >> temp) {
         if (data == temp[0]) {  
-                group += temp + ' ';        
+            //cout << "adding this word " << temp << endl;
+                group += temp + ' ';
         }
     }
 
@@ -162,11 +158,13 @@ void BST::printInorder(struct Node* node, int indent, ofstream &file)
     printInorder(node->left, indent + 1, file);
   
     // print out the node to their respective output files
+    //gets the words that start with that letter
     word = getWord(node->data);
+    //file << "Level " << indent << "\t";
     for (int i = 0; i < indent; i++) {
         file << "\t";
     }
-    //cout<< node->data << ": " << word << " " << endl;
+    
     file << node->data << ": " << word << " " << endl;
    
     // now recur on right child 
@@ -190,27 +188,30 @@ void BST::printPostorder(Node* node, int indent, ofstream& file)
     printPostorder(node->right, indent+1, file);
 
     // print out the node to their respective output files
+    //gets the words that start with that letter
     word = getWord(node->data);
+    //file << "Level " << indent << "\t";
     for (int i = 0; i < indent; i++) {
         file << "\t";
     }
-
+    
     file << node->data << ": " << word << " " << endl;
 
 }
-
-
 
 // Given a binary tree, print its nodes in preorder
 //indents/levels are in tabs, root (no tab), level 1 (1 tab), level 2 (2tabs) ...
 void BST::printPreorder(struct Node* node, int indent, ofstream& file)
 {
     string word = "";
+
     if (node == NULL)
         return;
 
     // print out the node to their respective output files
+    //gets the words that start with that letter
     word = getWord(node->data);
+    //file << "Level " << indent << "\t";
     for (int i = 0; i < indent; i++) {
         file << "\t";
     }

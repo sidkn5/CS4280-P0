@@ -1,6 +1,7 @@
-//Node.h header file
+// Student: Sean Dela Pena
+// Node.h header file
 //
-//
+
 
 #ifndef node_h
 #define node_h
@@ -11,13 +12,7 @@ struct Node {
 	Node* left;
 	Node* right;
 	Node* parent;
-	
-	/*Node(char val) {
-		data = val;
-		left = NULL;
-		right = NULL;
-		parent = NULL;
-	}*/
+
 };
 
 

@@ -1,6 +1,8 @@
-//tree header file
+// Student: Sean Dela Pena
+// tree header file
 //
 //
+
 #ifndef tree_hpp
 #define tree_hpp
 
@@ -17,9 +19,12 @@ using namespace std;
 class BST {
 
 private:
+
 	Node* root;
 	string STACKBUFFER;
+
 public:
+
 	BST();
 	~BST();
 	
